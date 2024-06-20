@@ -1,3 +1,4 @@
+import subprocess
 from flask import Flask, request, jsonify
 from pydantic import BaseModel, ValidationError
 from typing import Optional
@@ -14,6 +15,8 @@ def get_question_and_facts():
         # Extract the question from the request data
         request_data = request.json
         question = request_data.get('question')
+        
+        print(subprocess.check_output(["kubectl get pods"], shell=True, text=True))
         
         # Here, you can implement your logic to generate an answer for the given question.
         # For simplicity, we'll just echo the question back in the answer.
