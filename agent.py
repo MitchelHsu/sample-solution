@@ -17,7 +17,7 @@ def get_question_and_facts():
         
         # Here, you can implement your logic to generate an answer for the given question.
         # For simplicity, we'll just echo the question back in the answer.
-        answer = "3"
+        answer = "14"
         
         # Create the response model
         response = AnswerResponse(question=question, answer=answer)
