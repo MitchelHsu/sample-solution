@@ -15,7 +15,7 @@ class QueryResponse(BaseModel):
     query: str
     answer: str
 
-@app.route('/query-agent', methods=['POST'])
+@app.route('/query', methods=['POST'])
 def create_query():
     try:
         # Extract the question from the request data
@@ -26,14 +26,14 @@ def create_query():
         logging.info(f"Received query: {query}")
         
         # Here, you can implement your logic to generate an answer for the given question.
-        # For simplicity, we'll just return a random string
+        # For simplicity, we'll just echo the question back in the answer.
         answer = "14"
         
         # Log the answer
         logging.info(f"Generated answer: {answer}")
         
         # Create the response model
-        response = AnswerResponse(query=query, answer=answer)
+        response = QueryResponse(query=query, answer=answer)
         
         return jsonify(response.dict())
     
