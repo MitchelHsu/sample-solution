@@ -11,29 +11,29 @@ logging.basicConfig(level=logging.DEBUG,
 
 app = Flask(__name__)
 
-class AnswerResponse(BaseModel):
-    question: str
+class QueryResponse(BaseModel):
+    query: str
     answer: str
 
 @app.route('/query-agent', methods=['POST'])
-def get_question_and_facts():
+def create_query():
     try:
         # Extract the question from the request data
         request_data = request.json
-        question = request_data.get('question')
+        query = request_data.get('query')
         
         # Log the question
-        logging.info(f"Received question: {question}")
+        logging.info(f"Received query: {query}")
         
         # Here, you can implement your logic to generate an answer for the given question.
-        # For simplicity, we'll just echo the question back in the answer.
+        # For simplicity, we'll just return a random string
         answer = "14"
         
         # Log the answer
         logging.info(f"Generated answer: {answer}")
         
         # Create the response model
-        response = AnswerResponse(question=question, answer=answer)
+        response = AnswerResponse(query=query, answer=answer)
         
         return jsonify(response.dict())
     
@@ -41,5 +41,4 @@ def get_question_and_facts():
         return jsonify({"error": e.errors()}), 400
 
 if __name__ == "__main__":
-    logging.info(subprocess.check_output(["kubectl get pods"], shell=True, text=True))
     app.run(host="0.0.0.0", port=8000)
